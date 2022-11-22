@@ -23,7 +23,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reloadCourses();
+  }
 
+  reloadCourses(){
     const courses$ = this.coursesService.loadAllCourses();
 
     this.beginnerCourses$ = courses$.pipe(
@@ -37,9 +40,7 @@ export class HomeComponent implements OnInit {
         course => course.category === 'ADVANCED'
       ))
     );
-
   }
-
 }
 
 
