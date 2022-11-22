@@ -29,12 +29,16 @@ export class HomeComponent implements OnInit {
   }
 
   reloadCourses(){
+
+    this.loadingService.loadingOn();
+
     const courses$ = this.coursesService.loadAllCourses();
 
     this.beginnerCourses$ = courses$.pipe(
       map(courses => courses.filter(
         course => course.category === 'BEGINNER'
-      ))
+      )),
+      finalize(() => this.loadingService.loadingOff())
     );
 
     this.advancedCourses$ = courses$.pipe(
